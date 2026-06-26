@@ -13,7 +13,6 @@ android {
         targetCompatibility = JavaVersion.VERSION_17
     }
 
-    // 使用 kotlinOptions 替代 compilerOptions（稳定且兼容 AGP 9.0）
     kotlinOptions {
         jvmTarget = "17"
         languageVersion = "1.8"
@@ -35,7 +34,6 @@ android {
     }
 }
 
-// 启用 coreLibraryDesugaring（解决 flutter_local_notifications 的问题）
 dependencies {
     coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.0.4")
 }
