@@ -1,6 +1,5 @@
 plugins {
     id("com.android.application")
-    // The Flutter Gradle Plugin must be applied after the Android and Kotlin Gradle plugins.
     id("dev.flutter.flutter-gradle-plugin")
 }
 
@@ -14,11 +13,15 @@ android {
         targetCompatibility = JavaVersion.VERSION_17
     }
 
+    // 使用 kotlinOptions 替代 compilerOptions（稳定且兼容 AGP 9.0）
+    kotlinOptions {
+        jvmTarget = "17"
+        languageVersion = "1.8"
+        apiVersion = "1.8"
+    }
+
     defaultConfig {
-        // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
         applicationId = "com.example.shift_recorder"
-        // You can update the following values to match your application needs.
-        // For more information, see: https://flutter.dev/to/review-gradle-config.
         minSdk = flutter.minSdkVersion
         targetSdk = flutter.targetSdkVersion
         versionCode = flutter.versionCode
@@ -27,26 +30,14 @@ android {
 
     buildTypes {
         release {
-            // TODO: Add your own signing config for the release build.
-            // Signing with the debug keys for now, so `flutter run --release` works.
             signingConfig = signingConfigs.getByName("debug")
         }
     }
 }
 
-
-// 新增：启用 core library desugaring
+// 启用 coreLibraryDesugaring（解决 flutter_local_notifications 的问题）
 dependencies {
     coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.0.4")
-}
-
-
-kotlin {
-    compilerOptions {
-        jvmTarget = JvmTarget.JVM_17
-        languageVersion = "1.8"
-        apiVersion = "1.8"
-    }
 }
 
 flutter {
